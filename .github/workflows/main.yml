@@ -9,6 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        containers: [1,2,3,4,5]
     steps:
       - uses: actions/checkout@v2
       
@@ -16,6 +20,7 @@ jobs:
         uses: cypress-io/github-action@v2.9.7
         with:
           record: true
+          parallel: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
